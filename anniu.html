@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <input class="res" id="demo" type="text" />
+    <div class="number">
+        <button class="one">0</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+    </div>
+    <div class="sign">
+        <button>+</button>
+        <button>-</button>
+        <button>*</button>
+        <button>/</button>
+    </div>
+    <div class="caozuo">
+        <button class="jieguo">=</button>
+        <button>C</button>
+    </div>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        //1.实现点击数字按钮input内显示对应数字
+        //2.实现点击数字按钮input内显示点击过的所有数字的拼接 1234
+        //3.实现点击符号按钮input内显示数字和符号拼接 1234+
+        //4.实现再次点击数字按钮input内显示1234（第一次输入的数字）+1234（第二次输入的）
+        //5.实现点击= 进行运算input内显示运算结果
+        //6.输入完两个数字和一个符号之后，点击运算符运算结果展示结果和新点击的运算符（1+1+2）
+        //7.输入完两个数字和一个符号之后 点击等号  a.继续点击运算符（将结果作为第一个数继续正常输入运算）b.继续点击数字（重新开始输入运算）
+
+
+        var zhi =''
+        // 存放第一次的数值
+        var num1 =''
+        // 存放第二次的数值
+        var num2 =''
+        var fuhao =''
+        var res=''
+        // 在数字按钮里面判断是第一次的数值还是第二次的数值，由符号来判断第二次的数值是有符号的
+        $('.number button').click(function(){
+             zhi= $(this).text();
+             if(res != ''){
+                num1=''
+                num2=''
+                fuhao=''
+                res=''
+             }
+              // 数字按钮的输出
+             // 判断符号
+                if(fuhao === ''){
+                    num1=num1+zhi
+                }else{
+                    num2=num2+zhi
+                }
+              // 第一次数值的拼接
+              // num1=num1+zhi
+             $('.res').val(num1+fuhao+num2)
+         })
+
+
+        $('.sign button').click(function(){
+            // 以下内容可以实现实现结果+
+            if(!fuhao){
+                // 第一次符号
+                fuhao=$(this).text();
+                $('.res').val(num1+fuhao);
+
+            }else{
+
+                switch (fuhao){
+                case '+': res=num1*1 +num2*1;break;
+                case '-': res=num1-num2;break;
+                case '*': res=num1*num2;break;
+                case '/': res=num1num2;break;
+            }
+            // 输出1+1+1  (显示为2+)
+            fuhao=$(this).text();
+            // 想继续运算的话需要设置num1为结果
+            num1 = res
+            num2 =''
+            res =''
+            // $('.res').val(res+fuhao) 这句话需要改成num1+num2
+            $('.res').val(num1+fuhao)
+            }
+
+            // 以下两行是输出1234+
+            // fuhao=$(this).text();
+            // $('.res').val(num1+fuhao);
+        })
+
+         $('.caozuo .jieguo').click(function(){
+            // 重新定义一个变量存放运算的结果
+
+            switch (fuhao){
+                case '+': res=num1*1 +num2*1;break;
+                case '-': res=num1-num2;break;
+                case '*': res=num1*num2;break;
+                case '/': res=num1num2;break;
+            }
+            $('.res').val(res)
+         })
+    </script>
+</body>
+</html>
